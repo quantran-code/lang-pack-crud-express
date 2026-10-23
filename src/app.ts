@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { HttpError } from './errors/httpError';
+import { itemsRouter } from './items';
 
 const app = express();
 
@@ -8,6 +9,8 @@ app.use(express.json());
 app.get('/health', (req: Request, res: Response) => {
   res.status(200).json({ status: 'ok', service: 'lang-pack-crud-express' });
 });
+
+app.use('/items', itemsRouter);
 
 app.use((req: Request, res: Response) => {
   res.status(404).json({ error: 'Not Found' });
